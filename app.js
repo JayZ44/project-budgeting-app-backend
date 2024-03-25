@@ -1,13 +1,24 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+app.use(cors());
+app.use(express.json());
 
+const transactionsController = require("./controllers/transactionsController.js");
+app.use("/transactions", transactionsController);
+
+// 404 PAGE
 app.get("/", (req, res) => {
   res.send("Welcome My Budgeting App!");
 });
-app.get("/transactions", (req, res) => {
-  res.send("All of the data goes here");
+// app.get("/transactions", (req, res) => {
+//   res.send("All of the data goes here");
+// });
+// app.get("transactions/:id", (req, res) => {
+//   res.send("Individual transaction by ID");
+// });
+app.get("*", (req, res) => {
+  res.status(404).send("Page not found. Smh my head");
 });
-app.get("transactions/:id", (req, res) => {
-  res.send("Individual transaction by ID");
-});
+
 module.exports = app;
