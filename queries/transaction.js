@@ -46,4 +46,43 @@ const createTransaction = async (transaction) => {
     return error;
   }
 };
-module.exports = { getAllTransactions, getTransaction, createTransaction };
+
+// DELETE
+const deleteTransaction = async (id) => {
+  try {
+    const deletedTransaction = await db.one(
+      "DELETE FROM transactions WHERE id=$1 RETURNING *",
+      id
+    );
+    return deletedTransaction;
+  } catch (error) {
+    return error;
+  }
+};
+
+// UPDATE
+const updateTransaction = async (id, transaction) => {
+  try {
+    const updatedTransaction = await db.one(
+      "UPDATE transactions SET item_name=$1, amount=$2,date=$3,source=$4,category=$5 WHERE id=$6 RETURNING *",
+      [
+        transaction.item_name,
+        transaction.amount,
+        transaction.date,
+        transaction.source,
+        transaction.category,
+        id,
+      ]
+    );
+    return updatedTransaction;
+  } catch (error) {
+    return error;
+  }
+};
+module.exports = {
+  getAllTransactions,
+  getTransaction,
+  createTransaction,
+  deleteTransaction,
+  updateTransaction,
+};
