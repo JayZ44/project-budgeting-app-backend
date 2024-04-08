@@ -7,7 +7,6 @@ app.use(express.json());
 const transactionsController = require("./controllers/transactionsController.js");
 app.use("/transactions", transactionsController);
 
-// 404 PAGE
 app.get("/", (req, res) => {
   res.send("Welcome My Budgeting App!");
 });
@@ -17,6 +16,7 @@ app.get("/", (req, res) => {
 // app.get("transactions/:id", (req, res) => {
 //   res.send("Individual transaction by ID");
 // });
+// 404 PAGE
 app.get("*", (req, res) => {
   res.status(404).send("Page not found. Smh my head");
 });
